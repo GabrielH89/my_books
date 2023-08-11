@@ -1,41 +1,29 @@
 import axios from 'axios';
-import React, {useState, useEffect} from 'react';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import React, {useState} from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
-function Update() {
+function Add() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [image, setImage] = useState("");
     const [preview, setPreview] = useState("");
+
     const navigate = useNavigate();
-    const {id} = useParams();
-
-    useEffect(() => {
-     getProductById();  
-    }, []);
     
-    const getProductById = async () => {
-        const response = await axios.get(`http://localhost:4000/books/${id}`);
-        setTitle(response.data.title);
-        setDescription(response.data.description);
-        setImage(response.data.image);
-        setPreview(response.data.url)
-    }
-
     const loadImage = (e) => {
         const newImage = e.target.files[0];
         setImage(newImage);
         setPreview(URL.createObjectURL(newImage));
     }
 
-    const atualizarLivro = async (e) => {
+    const adicionarLivro = async (e) => {
         e.preventDefault();
         const formData = new FormData();
         formData.append("title", title);
         formData.append("description", description);
         formData.append("image", image);
         try{
-            await axios.patch(`http://localhost:4000/books/${id}`, formData, {
+            await axios.post("http://localhost:4000/books", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data"
                 }
@@ -50,7 +38,7 @@ function Update() {
         <div>
             <div className='columns is-centered mt-5'>
                 <div className='column is-half'>
-                    <form onSubmit={atualizarLivro}>
+                    <form onSubmit={adicionarLivro}>
                         <div className='field'>
                             <label className="label">Título</label>
                             <div className='control'>
@@ -89,8 +77,8 @@ function Update() {
                         )}
                         <div className='field'>
                             <div className='control'>
-                                <button type='submit' className='button is-success' onClick={atualizarLivro}>
-                                Atualizar</button>
+                                <button type='submit' className='button is-success' onClick={adicionarLivro}>
+                                Adicionar</button>
                             </div>       
                         </div>
                     </form>
@@ -101,4 +89,4 @@ function Update() {
     )
 }
 
-export default Update
+export default Add
