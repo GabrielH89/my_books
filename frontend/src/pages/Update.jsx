@@ -35,7 +35,7 @@ function Update() {
         formData.append("description", description);
         formData.append("image", image);
         try{
-            await axios.patch(`http://localhost:4000/books/${id}`, formData, {
+            await axios.put(`http://localhost:4000/books/${id}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data"
                 }

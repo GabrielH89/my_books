@@ -4,15 +4,8 @@ const FileUpload = require('express-fileupload')
 const port = 4000;
 const app = express();
 const bookRoute = require('./routes/bookRoutes');
-
-
-const corsOptions = {
-    origin: 'http://localhost:3000', // Substitua pelo seu URL de origem
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-    allowedHeaders: ['Content-Type'],
-  };
   
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 app.use(FileUpload({}));
 app.use(express.static("public"));
