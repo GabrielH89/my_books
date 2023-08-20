@@ -30,17 +30,21 @@ function Update() {
 
     const atualizarLivro = async (e) => {
         e.preventDefault();
-        const formData = new FormData();
-        formData.append("title", title);
-        formData.append("description", description);
-        formData.append("image", image);
         try{
-            await axios.put(`http://localhost:4000/books/${id}`, formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                }
-            });
+            if(title.trim().length > 0 && description.trim().length > 0){
+                const formData = new FormData();
+                formData.append("title", title);
+                formData.append("description", description);
+                formData.append("image", image);
+                await axios.put(`http://localhost:4000/books/${id}`, formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                });
             navigate("/");
+            }else{
+                alert("Todos os campos devem estar preenchidos!");
+            }
         }catch(err){
             console.log("Erro: " + err);
         }
@@ -55,6 +59,7 @@ function Update() {
                             <label className="label">Título</label>
                             <div className='control'>
                             <input className="input" type="text" value={title} 
+                            maxLength={100} placeholder='Máx: 100 caracteres'
                             onChange={(e) => setTitle(e.target.value)}>
                             </input>
                             </div>
@@ -63,6 +68,7 @@ function Update() {
                             <label className="label">Descricao</label>
                             <div className='control'>
                             <input className="input" type="text" value={description} 
+                            maxLength={200} placeholder='Máx: 200 caracteres' 
                             onChange={(e) => setDescription(e.target.value)}>
                             </input>
                             </div>

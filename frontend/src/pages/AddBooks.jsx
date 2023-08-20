@@ -18,17 +18,22 @@ function Add() {
 
     const adicionarLivro = async (e) => {
         e.preventDefault();
-        const formData = new FormData();
-        formData.append("title", title);
-        formData.append("description", description);
-        formData.append("image", image);
         try{
-            await axios.post("http://localhost:4000/books", formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                }
-            });
-            navigate("/");
+            if(title.trim().length > 0 && description.trim().length > 0){
+                const formData = new FormData();
+                formData.append("title", title);
+                formData.append("description", description);
+                formData.append("image", image);
+                await axios.post("http://localhost:4000/books", formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                });
+                navigate("/");
+            }else{
+                alert("Preencha todos os campos!");
+            }
+            
         }catch(err){
             console.log("Erro: " + err);
         }
@@ -43,6 +48,7 @@ function Add() {
                             <label className="label">Título</label>
                             <div className='control'>
                             <input className="input" type="text" value={title} 
+                            maxLength={100} placeholder='Máx: 100 caracteres'
                             onChange={(e) => setTitle(e.target.value)}>
                             </input>
                             </div>
@@ -50,7 +56,8 @@ function Add() {
                         <div className='field'>
                             <label className="label">Descricao</label>
                             <div className='control'>
-                            <input className="input" type="text" value={description} 
+                            <input className="input" type="text" value={description}
+                            maxLength={200} placeholder='Máx: 200 caracteres' 
                             onChange={(e) => setDescription(e.target.value)}>
                             </input>
                             </div>

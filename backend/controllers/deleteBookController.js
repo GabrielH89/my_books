@@ -1,4 +1,6 @@
 const Book = require('../models/booksModel');
+const fs = require('fs');
+const path = require('path');
 
 const deleteBooks = async (req, res) => {
     const book = await Book.findOne({

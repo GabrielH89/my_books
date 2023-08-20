@@ -1,0 +1,14 @@
+
+.book-title,
+.book-description {
+  max-height: 4.5em; /* Defina a altura máxima desejada */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Adiciona reticências (...) quando o texto é cortado */
+}
+
+.book-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Define o número de linhas que serão exibidas */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
