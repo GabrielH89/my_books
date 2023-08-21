@@ -1,3 +1,6 @@
+body {
+  background-color: ghostwhite;
+}
 
 .book-title,
 .book-description {
@@ -12,3 +15,14 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+#inputSearchBook {
+  width: 200px;
+  height: 40px;
+}
+
+#searchedBook {
+  border: 2px solid black; 
+}
+
+
